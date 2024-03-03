@@ -58,11 +58,11 @@ jobs:
 
       - name: screenshots main branch
         if: steps.check_files.outputs.files_exists == 'false'
-        run: npm run screenshot
+        run: npm run ci:screenshot
 
       - name: run reg-suit main branch
         if: steps.check_files.outputs.files_exists == 'false'
-        run: npm run reg-suit
+        run: npm run ci:reg-suit
 
       - name: set reg-suit expected
         if: steps.check_files.outputs.files_exists == 'false'
@@ -112,10 +112,10 @@ jobs:
         run: npm run build-storybook
 
       - name: screenshots
-        run: npm run screenshot
+        run: npm run ci:screenshot
 
       - name: run reg-suit
-        run: npm run reg-suit
+        run: npm run ci:reg-suit
 
       - name: upload reg-suit
         uses: actions/upload-artifact@v2

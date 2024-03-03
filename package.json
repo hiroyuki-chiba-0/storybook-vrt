@@ -9,8 +9,8 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "screenshot": "storycap -C puppeteer --serverCmd \"start-storybook -p 6006\" http://localhost:6006 --serverTimeout 600000 --delay 1000",
-    "reg-suit": "reg-suit run"
+    "ci:screenshot": "storycap -C puppeteer --serverCmd \"start-storybook -p 6006\" http://localhost:6006 --serverTimeout 600000 --delay 1000",
+    "ci:reg-suit": "reg-suit run"
   },
   "dependencies": {
     "next": "14.1.1",
