@@ -9,6 +9,11 @@
     }
   },
   "plugins": {
-    "reg-keygen-git-hash-plugin": true
+    "reg-keygen-git-hash-plugin": true,
+    "reg-notify-github-plugin": {
+      "prComment": true,
+      "prCommentBehavior": "default",
+      "clientId": "MzczMzEzMjA21y8uyS+qTMrPz9YtKyrRNzG3tLSwNDTXz8gsyq8szc7UTc7ITErUNQAA"
+    }
   }
 }
