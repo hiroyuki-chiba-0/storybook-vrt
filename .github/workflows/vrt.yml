@@ -93,11 +93,11 @@ jobs:
         run: |
           git checkout ${GITHUB_HEAD_REF#refs/heads/} || git checkout -b ${GITHUB_HEAD_REF#refs/heads/} && git pull
 
-#      - name: restore yarn cache
-#        uses: actions/cache@v2
-#        with:
-#          path: .yarn/cache/
-#          key: yarn-${{ hashFiles('**/yarn.lock') }}-v1
+      #      - name: restore yarn cache
+      #        uses: actions/cache@v2
+      #        with:
+      #          path: .yarn/cache/
+      #          key: yarn-${{ hashFiles('**/yarn.lock') }}-v1
 
       - name: npm install
         run: npm ci
