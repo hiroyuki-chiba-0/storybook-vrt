@@ -30,11 +30,11 @@ jobs:
         id: commithash
         run: echo "::set-output name=hash::$(git rev-parse HEAD)"
 
-      - name: restore yarn cache
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache/
-          key: reg-yarn-${{ hashFiles('**/yarn.lock') }}-v1
+      #      - name: restore yarn cache
+      #        uses: actions/cache@v2
+      #        with:
+      #          path: .yarn/cache/
+      #          key: reg-yarn-${{ hashFiles('**/yarn.lock') }}-v1
 
       - name: restore reg-suit screenshots
         uses: actions/cache@v2
@@ -48,17 +48,21 @@ jobs:
         with:
           files: ".reg/"
 
-      - name: yanr install main branch
+      - name: npm install main branch
         if: steps.check_files.outputs.files_exists == 'false'
-        run: yarn install --immutable
+        run: npm ci
+
+      - name: build storybook main branch
+        if: steps.check_files.outputs.files_exists == 'false'
+        run: npm run build-storybook
 
       - name: screenshots main branch
         if: steps.check_files.outputs.files_exists == 'false'
-        run: yarn ci:screenshot
+        run: npm run ci:screenshot
 
       - name: run reg-suit main branch
         if: steps.check_files.outputs.files_exists == 'false'
-        run: yarn ci:reg-suit
+        run: npm run ci:reg-suit
 
       - name: set reg-suit expected
         if: steps.check_files.outputs.files_exists == 'false'
@@ -89,14 +93,14 @@ jobs:
         run: |
           git checkout ${GITHUB_HEAD_REF#refs/heads/} || git checkout -b ${GITHUB_HEAD_REF#refs/heads/} && git pull
 
-      - name: restore yarn cache
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache/
-          key: yarn-${{ hashFiles('**/yarn.lock') }}-v1
+      #      - name: restore yarn cache
+      #        uses: actions/cache@v2
+      #        with:
+      #          path: .yarn/cache/
+      #          key: yarn-${{ hashFiles('**/yarn.lock') }}-v1
 
-      - name: yarn install
-        run: yarn install --immutable
+      - name: npm install
+        run: npm ci
 
       - name: load reg-suit expecteds
         uses: actions/download-artifact@v2
@@ -104,11 +108,14 @@ jobs:
           name: reg-expected
           path: .reg/
 
+      - name: build storybook
+        run: npm run build-storybook
+
       - name: screenshots
-        run: yarn ci:screenshot
+        run: npm run ci:screenshot
 
       - name: run reg-suit
-        run: yarn ci:reg-suit
+        run: npm run ci:reg-suit
 
       - name: upload reg-suit
         uses: actions/upload-artifact@v2
